@@ -3,278 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shane Menezes - Digital Portfolio</title>
+    <title>Shane Menezes - Digital CV</title>
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        /* Custom styles for a modern, dark theme */
+        /* Base styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F1A; /* Very dark navy/black */
+            color: #E0E0E0; /* Light gray text */
+        }
         html {
             scroll-behavior: smooth;
         }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #0a192f; /* Deep Navy Blue */
-            color: #ccd6f6; /* Light Slate Text */
-        }
-        .section-padding {
-            padding: 8rem 1.5rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        /* New Color Palette: Navy, Purple, White */
-        .text-accent-primary {
-            color: #a78bfa; /* Light Purple */
-        }
+
+        /* Accent Colors */
         .bg-accent-primary {
-            background-color: #8b5cf6; /* Vibrant Purple */
+            background-color: #5A4FCF; /* Vibrant purple */
+        }
+        .text-accent-primary {
+            color: #5A4FCF; /* Vibrant purple */
         }
         .hover-accent-primary:hover {
-            background-color: #7c3aed; /* Darker Purple */
+            background-color: #4B41AD; /* Darker purple on hover */
         }
         .border-accent-primary {
-            border-color: #8b5cf6;
+            border-color: #5A4FCF;
         }
-        .text-lightest-slate {
-            color: #e6f1ff;
+
+        /* Glassmorphism Card Style */
+        .card-glass {
+            background-color: rgba(26, 26, 41, 0.75); /* Semi-transparent dark blue/purple */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        .bg-light-navy {
-            background-color: #112240; /* Lighter navy for cards */
+
+        /* Timeline Styles for Experience */
+        .timeline-item {
+            position: relative;
+            padding-left: 2.5rem; /* Space for the line and dot */
+            padding-bottom: 2rem;
+            border-left: 2px solid #333; /* Timeline vertical line */
         }
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 10px;
+        .timeline-item:last-child {
+            border-left: 2px solid transparent; /* Hide line for last item */
+            padding-bottom: 0;
         }
-        ::-webkit-scrollbar-track {
-            background: #0a192f;
-        }
-        ::-webkit-scrollbar-thumb {
-            background-color: #112240;
-            border-radius: 5px;
-        }
-        /* Timeline line and dots */
-        .timeline-item::before {
-            content: '';
+        .timeline-dot {
             position: absolute;
-            left: -33px;
-            top: 4px;
-            width: 14px;
-            height: 14px;
+            left: -0.5625rem; /* Center the dot on the line */
+            top: 0.25rem;
+            width: 1.125rem;
+            height: 1.125rem;
+            background-color: #5A4FCF; /* Purple dot */
             border-radius: 50%;
-            background-color: #112240;
-            border: 3px solid #a78bfa;
+            border: 2px solid #0F0F1A;
         }
-        /* Add a subtle animation for section load-in */
-        .fade-in-section {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        
+        /* Form Input Styles */
+        .form-input {
+            background-color: rgba(26, 26, 41, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #E0E0E0;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
-        .fade-in-section.is-visible {
-            opacity: 1;
-            transform: translateY(0);
+        .form-input:focus {
+            border-color: #5A4FCF;
+            box-shadow: 0 0 0 2px rgba(90, 79, 207, 0.5);
+            outline: none;
         }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Header and Navigation -->
-    <header class="sticky top-0 z-50 bg-[#0a192f]/80 backdrop-blur-lg border-b border-gray-800">
-        <nav class="flex items-center justify-between max-w-6xl mx-auto px-6 py-4">
-            <a href="#" class="text-2xl font-bold text-white hover:text-accent-primary transition-colors duration-300">
-                SM
-            </a>
-            <div class="space-x-6 flex items-center">
-                <a href="#about" class="nav-link text-base font-medium text-gray-300 hover:text-accent-primary transition-colors duration-300 hidden md:inline-block">About</a>
-                <a href="#experience" class="nav-link text-base font-medium text-gray-300 hover:text-accent-primary transition-colors duration-300 hidden md:inline-block">Experience</a>
-                <a href="#projects" class="nav-link text-base font-medium text-gray-300 hover:text-accent-primary transition-colors duration-300 hidden md:inline-block">Projects</a>
-                <a href="#contact" class="nav-link text-base font-medium text-gray-300 hover:text-accent-primary transition-colors duration-300 hidden md:inline-block">Contact</a>
-                <button id="mobile-menu-button" class="md:hidden text-gray-300 p-2 rounded-lg hover:bg-light-navy">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                </button>
+    <!-- Header & Navigation -->
+    <header class="sticky top-0 z-50 w-full backdrop-blur-lg" style="background-color: rgba(15, 15, 26, 0.85);">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo/Name -->
+                <div class="flex-shrink-0">
+                    <a href="#hero" class="text-2xl font-bold text-white transition-colors duration-200 hover:text-accent-primary">Shane Menezes</a>
+                </div>
+                <!-- Desktop Nav -->
+                <div class="hidden sm:flex sm:items-center sm:space-x-6">
+                    <a href="#about" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">About</a>
+                    <a href="#experience" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Experience</a>
+                    <a href="#projects" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Projects</a>
+                    <a href="#skills" class="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200">Skills</a>
+                    <a href="#contact" class="bg-accent-primary text-white px-4 py-2 rounded-lg text-sm font-medium hover-accent-primary transition-all duration-200 transform hover:scale-105">
+                        Contact
+                    </a>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="sm:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white p-2 rounded-md">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </nav>
-        <div id="mobile-menu" class="hidden md:hidden bg-light-navy border-t border-gray-800">
-            <a href="#about" class="block py-3 px-6 text-base text-gray-300 hover:bg-slate-700 transition-colors">About</a>
-            <a href="#experience" class="block py-3 px-6 text-base text-gray-300 hover:bg-slate-700 transition-colors">Experience</a>
-            <a href="#projects" class="block py-3 px-6 text-base text-gray-300 hover:bg-slate-700 transition-colors">Projects</a>
-            <a href="#contact" class="block py-3 px-6 text-base text-gray-300 hover:bg-slate-700 transition-colors">Contact</a>
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden sm:hidden">
+            <a href="#about" class="block text-gray-300 hover:text-white px-4 py-3 text-base font-medium transition-colors duration-200">About</a>
+            <a href="#experience" class="block text-gray-300 hover:text-white px-4 py-3 text-base font-medium transition-colors duration-200">Experience</a>
+            <a href="#projects" class="block text-gray-300 hover:text-white px-4 py-3 text-base font-medium transition-colors duration-200">Projects</a>
+            <a href="#skills" class="block text-gray-300 hover:text-white px-4 py-3 text-base font-medium transition-colors duration-200">Skills</a>
+            <a href="#contact" class="block text-gray-300 hover:text-white px-4 py-3 text-base font-medium transition-colors duration-200">Contact</a>
         </div>
     </header>
 
-    <main>
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         <!-- Hero Section -->
-        <section id="hero" class="section-padding min-h-[90vh] flex items-center justify-center text-center">
-            <div class="max-w-3xl">
-                <h1 class="text-5xl md:text-7xl font-extrabold text-lightest-slate mb-4">
+        <section id="hero" class="min-h-screen flex items-center justify-center text-center py-20">
+            <div>
+                <!-- Placeholder for profile picture -->
+                <!-- To add your image:
+                    1. Name your image 'profile.jpg'
+                    2. Upload it to your GitHub repository
+                    3. Uncomment the img tag below
+                -->
+                <!--
+                <img src="profile.jpg" alt="Shane Menezes" class="w-40 h-40 rounded-full mx-auto mb-6 border-4 border-accent-primary shadow-lg" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/160x160/1A1A29/5A4FCF?text=SM'; this.style.border='none';">
+                -->
+                 
+                <h1 class="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white mb-4">
                     Shane Menezes
                 </h1>
-                <h2 class="text-3xl md:text-4xl font-bold text-accent-primary mb-6">
-                    Computer Systems Engineering Student
+                <h2 class="text-xl sm:text-2xl font-medium text-gray-300 mb-8">
+                    Computer Systems Engineering Student at Queen Mary University of London
                 </h2>
-                <p class="text-gray-400 text-lg leading-relaxed mb-8 max-w-2xl mx-auto">
-                    A proactive and ambitious student at Queen Mary University of London, passionate about the intersection of technology, finance, and business innovation.
-                </p>
-                <a href="SHANE MENEZES CV.pdf" class="px-8 py-3 bg-accent-primary text-white font-semibold rounded-lg shadow-lg hover-accent-primary transition-all duration-300 transform hover:scale-105 inline-block" download>
-                    Download My CV
-                </a>
+                <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4">
+                    <a href="SHANE MENEZES CV.pdf" target="_blank" class="w-full sm:w-auto bg-accent-primary text-white px-8 py-3 rounded-lg text-lg font-semibold hover-accent-primary transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Download CV
+                    </a>
+                    <a href="https://www.linkedin.com/in/shaneellonmenezes" target="_blank" rel="noopener noreferrer" class="w-full sm:w-auto bg-gray-700 text-white px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-600 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        LinkedIn Profile
+                    </a>
+                </div>
             </div>
         </section>
 
         <!-- About Me Section -->
-        <section id="about" class="section-padding fade-in-section">
-             <h2 class="text-4xl font-bold text-center text-lightest-slate mb-16">About Me</h2>
-             <div class="grid grid-cols-1 md:grid-cols-5 gap-12 items-center">
-                <div class="md:col-span-3">
-                    <p class="text-lg text-gray-400 leading-relaxed mb-4">
-                        I am a dedicated Computer Systems Engineering student with a strong foundation in software development and a keen interest in financial technology. My experience includes internships at major organizations like <strong class="text-white">Microsoft</strong> and <strong class="text-white">HS2</strong>, where I honed my analytical, problem-solving, and communication skills.
-                    </p>
-                     <p class="text-lg text-gray-400 leading-relaxed mb-4">
-                       Proficient in <strong class="text-accent-primary">Java, C#, and Python</strong>, I enjoy building impactful applications, from real-time simulators to conversational AI. My professional development has been further bolstered by finance accelerator programs with <strong class="text-white">UBS</strong> and <strong class="text-white">Morgan Stanley</strong>, providing me with a unique perspective on leveraging technology in financial markets.
-                    </p>
-                    <p class="text-lg text-gray-400 leading-relaxed">
-                        I thrive in collaborative environments and am always eager to take on new challenges that allow me to learn, innovate, and contribute to meaningful projects.
-                    </p>
-                </div>
-                 <div class="md:col-span-2 flex justify-center">
-                     <div class="w-64 h-80 bg-light-navy rounded-lg p-4">
-                        <h3 class="font-bold text-lightest-slate text-xl mb-4 text-center">Core Skills</h3>
-                        <ul class="space-y-2">
-                            <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M12 6V4m0 16v-2M8 12a4 4 0 118 0 4 4 0 01-8 0z" /></svg> Java, C#, Python</li>
-                            <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg> Team Collaboration</li>
-                            <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" /></svg> Financial Analysis</li>
-                            <li class="flex items-center"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-accent-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg> Problem-Solving</li>
-                        </ul>
-                     </div>
-                 </div>
-             </div>
+        <section id="about" class="py-24">
+            <div class="card-glass rounded-2xl p-8 md:p-12">
+                <h2 class="text-4xl font-bold text-white mb-6">About Me</h2>
+                <p class="text-lg text-gray-300 leading-relaxed mb-4">
+                    I am a proactive and ambitious Computer Systems Engineering student passionate about the intersection of technology and business. With a strong foundation in <strong class="text-white">Java, C#, and Python</strong>, I enjoy leveraging my technical skills to build impactful, real-world projects.
+                </p>
+                <p class="text-lg text-gray-300 leading-relaxed">
+                    From researching <strong class="text-accent-primary">Copilot AI at Microsoft</strong> to developing real-time simulations, I am driven by innovation and a desire to deliver high-quality results. I combine strong analytical abilities with leadership experience to tackle complex challenges and coordinate effectively within multidisciplinary teams.
+                </p>
+            </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="section-padding fade-in-section">
-            <h2 class="text-4xl font-bold text-center text-lightest-slate mb-16">Work Experience</h2>
-            <div class="relative pl-10 border-l-2 border-gray-700">
-                <!-- Job 1 -->
-                <div class="relative mb-12 timeline-item">
-                    <p class="text-sm font-medium text-accent-primary mb-1">July 2025</p>
-                    <h3 class="text-2xl font-semibold text-lightest-slate">Project Intern</h3>
-                    <p class="text-xl text-gray-400 mb-3">Microsoft</p>
-                    <p class="text-gray-400">Collaborated within the I Accelerator Programme, researching and presenting methods to improve efficiency using Copilot AI to senior leaders.</p>
+        <section id="experience" class="py-24">
+            <h2 class="text-4xl font-bold text-white mb-12 text-center">Work Experience</h2>
+            <div class="max-w-4xl mx-auto">
+                
+                <!-- Timeline Item 1: Microsoft -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-2xl font-semibold text-accent-primary">Project Intern</h3>
+                            <span class="text-sm font-medium text-gray-400 bg-gray-700 px-3 py-1 rounded-full">Jul 2025 (1 Week)</span>
+                        </div>
+                        <p class="text-xl text-white mb-4">Microsoft (I accelerator programme)</p>
+                        <p class="text-gray-300 leading-relaxed">
+                            As part of Microsoft's I accelerator programme, I collaborated with a multidisciplinary team to deliver a presentation to senior leaders. We researched and presented various methods to improve efficiency amongst managers and employees using <strong class="text-white">Copilot AI</strong>, strengthening my analytical, problem-solving, and public speaking skills.
+                        </p>
+                    </div>
                 </div>
-                <!-- Job 2 -->
-                <div class="relative mb-12 timeline-item">
-                     <p class="text-sm font-medium text-accent-primary mb-1">Oct 2024 - Apr 2025</p>
-                    <h3 class="text-2xl font-semibold text-lightest-slate">Podcast Host</h3>
-                    <p class="text-xl text-gray-400 mb-3">qLegal</p>
-                    <p class="text-gray-400">Oversaw podcast production, engaging with experts and managing sensitive content, demonstrating strong project coordination and communication skills.</p>
+
+                <!-- Timeline Item 2: qLegal -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-2xl font-semibold text-accent-primary">Podcast Host</h3>
+                            <span class="text-sm font-medium text-gray-400 bg-gray-700 px-3 py-1 rounded-full">Oct 2024 – Apr 2025</span>
+                        </div>
+                        <p class="text-xl text-white mb-4">qLegal (Yours Lawfully Podcast)</p>
+                        <p class="text-gray-300 leading-relaxed mb-4">
+                            Oversaw the production of podcast episodes using industry-standard audio editing software. This role required engaging with subject-matter experts, ensuring responsible handling of sensitive content, and demonstrating strong teamwork, time management, and project coordination to deliver high-quality content on deadline.
+                        </p>
+                        
+                        <!-- Podcast Links Section -->
+                        <div class="mt-4">
+                            <p class="text-base font-medium text-gray-300 mb-2">Listen to the episodes:</p>
+                            <ul class="list-disc list-inside space-y-2">
+                                <li>
+                                    <a href="https://open.spotify.com/episode/0OcOC07SngKdOFUfA7A1Ua?si=530e984393134d9d" target="_blank" rel="noopener noreferrer" class="text-accent-primary hover:text-purple-400 transition-colors duration-200 underline">
+                                        Ep 1: Truth in Sustainability: Can AI help tackle Greenwashing?
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://open.spotify.com/episode/1ZZw2dcJJ140BnTYaIl1GM?si=8a417deea87244cf" target="_blank" rel="noopener noreferrer" class="text-accent-primary hover:text-purple-400 transition-colors duration-200 underline">
+                                        Ep 2: The ethics of AI in film making (Pt 1)
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://open.spotify.com/episode/21MSCVRGTjrga5IFfJs5Ck?si=a414331393014f01" target="_blank" rel="noopener noreferrer" class="text-accent-primary hover:text-purple-400 transition-colors duration-200 underline">
+                                        Ep 2: The ethics of AI in film making (Pt 2)
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- End of Podcast Links Section -->
+
+                    </div>
                 </div>
-                <!-- Job 3 -->
-                <div class="relative timeline-item">
-                    <p class="text-sm font-medium text-accent-primary mb-1">Aug 2023</p>
-                    <h3 class="text-2xl font-semibold text-lightest-slate">Project Intern</h3>
-                    <p class="text-xl text-gray-400 mb-3">HS2</p>
-                    <p class="text-gray-400">Gained exposure to large-scale development processes and delivered a research-based presentation on project impacts.</p>
+
+                <!-- Timeline Item 3: HS2 -->
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="card-glass rounded-xl p-6 transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-2xl font-semibold text-accent-primary">Project Intern</h3>
+                            <span class="text-sm font-medium text-gray-400 bg-gray-700 px-3 py-1 rounded-full">Aug 2023 (1 Week)</span>
+                        </div>
+                        <p class="text-xl text-white mb-4">HS2</p>
+                        <p class="text-gray-300 leading-relaxed">
+                            Completed an internship involving site-tours and exposure to construction machinery and development processes. I delivered a presentation on HS2's commuter and environmental impacts, which required in-depth research, analysis, and stakeholder evaluation, strengthening my communication and teamwork skills.
+                        </p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="section-padding fade-in-section">
-            <h2 class="text-4xl font-bold text-center text-lightest-slate mb-16">Featured Projects</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Project 1 -->
-                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col h-full hover:shadow-purple-900/20 transition-shadow duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-2xl font-semibold text-lightest-slate mb-2">Java Horse Race Simulator</h3>
-                    <p class="text-gray-400 mb-4 flex-grow">A real-time, interactive simulator built with Java Swing, featuring dynamic race visualization and customizable attributes.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto text-sm">
-                        <span class="text-accent-primary">Java Swing</span>
-                        <span class="text-accent-primary">IntelliJ</span>
+        <section id="projects" class="py-24">
+            <h2 class="text-4xl font-bold text-white mb-12 text-center">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                
+                <!-- Project 1: Horse Race Simulator -->
+                <div class="card-glass rounded-xl p-6 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                    <h3 class="text-2xl font-semibold text-accent-primary mb-2">Java Horse Race Simulator</h3>
+                    <p class="text-sm text-gray-400 mb-4">Java Swing, IntelliJ</p>
+                    <p class="text-gray-300 leading-relaxed flex-grow mb-4">
+                        Developed a real-time, interactive horse racing simulator using Java Swing. The project featured dynamic race visualization, user interaction, and customizable horse and track attributes. <strong class="text-white">Achieved an evaluation score of 87.5%</strong>, reflecting strong performance in design, functionality, and user experience.
+                    </p>
+                </div>
+
+                <!-- Project 2: Java Chatbot -->
+                <div class="card-glass rounded-xl p-6 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                    <h3 class="text-2xl font-semibold text-accent-primary mb-2">Java Conversational Chatbot</h3>
+                    <p class="text-sm text-gray-400 mb-4">Java, JupyterHub</p>
+                    <p class="text-gray-300 leading-relaxed flex-grow mb-4">
+                        Built a Java-based chatbot capable of handling diverse user inputs and maintaining multi-turn conversations. Implemented dynamic response logic, file handling, and robust error management to ensure smooth interactions, showcasing strong command of <strong class="text-white">conversational flow design</strong> and adaptive input parsing.
+                    </p>
+                </div>
+
+                <!-- Project 3: Finance Accelerator -->
+                <div class="card-glass rounded-xl p-6 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                    <h3 class="text-2xl font-semibold text-accent-primary mb-2">Finance Accelerator Simulation</h3>
+                    <p class="text-sm text-gray-400 mb-4">AmplifyME, UBS & Morgan Stanley</p>
+                    <p class="text-gray-300 leading-relaxed flex-grow mb-4">
+                        Gained hands-on experience in Buy-Side Asset Management and Sell-Side Investment Banking roles, <strong class="text-white">scoring 67% in the asset management round</strong>. Leveraged pattern recognition and data interpretation, sparking a deeper interest in how technology intersects with financial markets.
+                    </p>
+                </div>
+
+                <!-- Project 4: Financial Modelling -->
+                <div class="card-glass rounded-xl p-6 flex flex-col h-full transition-all duration-300 hover:shadow-2xl hover:border-accent-primary">
+                    <h3 class="text-2xl font-semibold text-accent-primary mb-2">Financial Modelling & Analysis</h3>
+                    <p class="text-sm text-gray-400 mb-4">City Investment Training</p>
+                    <p class="text-gray-300 leading-relaxed flex-grow mb-4">
+                        Completed a 2-day course building a full financial model from scratch. Gained practical skills in Excel, forecasting, valuation, and financial statement analysis, strengthening attention to detail under time pressure and learning to <strong class="text-white">effectively communicate financial insights</strong>.
+                    </pre>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Skills & Education Section -->
+        <section id="skills" class="py-24">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Education -->
+                <div class="card-glass rounded-xl p-8">
+                    <h2 class="text-3xl font-bold text-white mb-6">Education</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xl font-semibold text-accent-primary">BEng Computer Systems Engineering</p>
+                            <p class="text-lg text-gray-300">Queen Mary University of London</p>
+                            <p class="text-sm text-gray-400">Sep 2024 – Present (On track for First Class Honours)</p>
+                        </div>
+                        <div>
+                            <p class="text-xl font-semibold text-accent-primary">A-Levels</p>
+                            <p class="text-lg text-gray-300">Uxbridge High School</p>
+                            <p class="text-sm text-gray-400">Mathematics (A), Physics (A), Economics (A)</p>
+                        </div>
                     </div>
                 </div>
-                 <!-- Project 2 -->
-                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col h-full hover:shadow-purple-900/20 transition-shadow duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-2xl font-semibold text-lightest-slate mb-2">Java Conversational Chatbot</h3>
-                    <p class="text-gray-400 mb-4 flex-grow">A Java-based chatbot capable of multi-turn conversations, featuring dynamic response logic and robust error management.</p>
-                    <div class="flex flex-wrap gap-2 mt-auto text-sm">
-                        <span class="text-accent-primary">Java</span>
-                        <span class="text-accent-primary">JupyterHub</span>
+                <!-- Skills -->
+                <div class="card-glass rounded-xl p-8">
+                    <h2 class="text-3xl font-bold text-white mb-6">Technical Skills</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Java</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">C#</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Python</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Excel</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">PowerPoint</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Financial Modelling</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Data Analysis</span>
                     </div>
-                </div>
-                 <!-- Project 3 -->
-                <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col h-full hover:shadow-purple-900/20 transition-shadow duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-2xl font-semibold text-lightest-slate mb-2">Finance Accelerator</h3>
-                    <p class="text-gray-400 mb-4 flex-grow">Completed an intensive simulation with UBS & Morgan Stanley, gaining hands-on experience in Asset Management and Investment Banking roles.</p>
-                     <div class="flex flex-wrap gap-2 mt-auto text-sm">
-                        <span class="text-accent-primary">Financial Modelling</span>
-                         <span class="text-accent-primary">Data Analysis</span>
-                    </div>
-                </div>
-                 <!-- Project 4 -->
-                 <div class="bg-light-navy p-6 rounded-lg shadow-lg flex flex-col h-full hover:shadow-purple-900/20 transition-shadow duration-300 transform hover:-translate-y-1">
-                    <h3 class="text-2xl font-semibold text-lightest-slate mb-2">City Investment Training</h3>
-                    <p class="text-gray-400 mb-4 flex-grow">Completed a 2-day Financial Modelling course, building a full model from scratch and gaining skills in forecasting and valuation.</p>
-                     <div class="flex flex-wrap gap-2 mt-auto text-sm">
-                        <span class="text-accent-primary">Excel</span>
-                         <span class="text-accent-primary">Valuation</span>
+                    <h2 class="text-3xl font-bold text-white mt-8 mb-6">Languages</h2>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">English (Fluent)</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Hindi (Fluent)</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Konkani (Fluent)</span>
+                        <span class="bg-gray-700 text-white px-4 py-2 rounded-full font-medium">Urdu (Conversational)</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Section -->
-        <footer id="contact" class="section-padding text-center fade-in-section">
-            <h2 class="text-4xl font-bold text-lightest-slate mb-4">Get In Touch</h2>
-            <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto">I'm always open to discussing new opportunities and collaborations. Feel free to connect with me.</p>
-            <div class="flex justify-center items-center gap-6">
-                <a href="mailto:shanemenezes4@gmail.com" class="bg-accent-primary text-white font-medium py-3 px-8 rounded-lg shadow-lg hover-accent-primary transition-all duration-300 transform hover:scale-105">
-                    Email Me
+        <!-- Contact Form Section -->
+        <section id="contact" class="py-24">
+            <div class="card-glass rounded-2xl p-8 md:p-12">
+                <h2 class="text-4xl font-bold text-white mb-4 text-center">Contact Me</h2>
+                <p class="text-lg text-gray-400 mb-8 max-w-xl mx-auto text-center">
+                    Have a question or want to collaborate? Send me a message below.
+                </p>
+                
+                <!-- Formspree Contact Form -->
+                <!-- IMPORTANT: Replace the action URL with your own Formspree URL -->
+                <form action="https://formspree.io/f/YOUR_UNIQUE_ID" method="POST" class="max-w-xl mx-auto">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <!-- Name -->
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Your Name</label>
+                            <input type="text" name="name" id="name" required 
+                                   class="form-input w-full px-4 py-3 rounded-lg text-base"
+                                   placeholder="Shane Menezes">
+                        </div>
+                        <!-- Email -->
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Your Email</label>
+                            <input type="email" name="email" id="email" required
+                                   class="form-input w-full px-4 py-3 rounded-lg text-base"
+                                   placeholder="shane@example.com">
+                        </div>
+                    </div>
+                    <!-- Subject -->
+                    <div class="mt-6">
+                        <label for="subject" class="block text-sm font-medium text-gray-300 mb-2">Subject</label>
+                        <input type="text" name="subject" id="subject" required
+                               class="form-input w-full px-4 py-3 rounded-lg text-base"
+                               placeholder="Job Opportunity">
+                    </div>
+                    <!-- Message -->
+                    <div class="mt-6">
+                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
+                        <textarea name="message" id="message" rows="4" required
+                                  class="form-input w-full px-4 py-3 rounded-lg text-base"
+                                  placeholder="Hello Shane, I'd like to discuss..."></textarea>
+                    </div>
+                    <!-- Submit Button -->
+                    <div class="mt-8 text-center">
+                        <button type="submit" 
+                                class="w-full sm:w-auto bg-accent-primary text-white px-10 py-3 rounded-lg text-lg font-semibold hover-accent-primary transition-all duration-300 transform hover:scale-105 shadow-lg">
+                            Send Message
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
+            <div classs="flex justify-center space-x-6 mb-8">
+                <a href="mailto:shanemenezes4@gmail.com" class="text-gray-400 hover:text-accent-primary transition-colors duration-200" title="Email">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                    </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/shaneellonmenezes" target="_blank" class="text-accent-primary font-medium py-3 px-8 rounded-lg border-2 border-accent-primary hover:bg-purple-900/20 transition-colors">
-                    LinkedIn
+                <a href="https://www.linkedin.com/in/shaneellonmenezes" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-accent-primary transition-colors duration-200" title="LinkedIn">
+                    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11 6H5v10h3V9zM6.5 8a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM18 9h-2.5c-1.9 0-2.5 1.1-2.5 2.4V19h-3V9h3v1.5c.6-.9 1.7-1.5 2.9-1.5C17.1 9 18 10 18 11.9V19h-3v-6.1c0-.7-.1-1.4-.8-1.4-.7 0-1.2.5-1.2 1.4V19H8V9h3v1.5a3.1 3.1 0 0 1 2.9-1.5c2.1 0 3.1 1.4 3.1 3.3V19h-3v-6.1z"/>
+                    </svg>
                 </a>
             </div>
-             <p class="text-sm text-gray-500 mt-16">&copy; 2025 Shane Menezes. Built with passion.</p>
-        </footer>
-    </main>
+            <p class="text-sm text-gray-500 mt-4">&copy; 2025 Shane Menezes. Built with Tailwind CSS.</p>
+        </div>
+    </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const navLinks = document.querySelectorAll('#mobile-menu a, .nav-link');
+            const navLinks = document.querySelectorAll('#mobile-menu a, header a[href^="#"]');
 
-            mobileMenuButton.addEventListener('click', () => {
+            // Toggle mobile menu
+            mobileMenuButton.addEventListener('click', (e) => {
+                e.stopPropagation();
                 mobileMenu.classList.toggle('hidden');
             });
 
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (!mobileMenu.classList.contains('hidden')) {
-                         mobileMenu.classList.add('hidden');
-                    }
-                });
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target)) {
+                    mobileMenu.classList.add('hidden');
+                }
             });
 
-            // Fade-in animation for sections
-            const sections = document.querySelectorAll('.fade-in-section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
+            // Close mobile menu when a link is clicked
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
                 });
-            }, {
-                threshold: 0.1
-            });
-            sections.forEach(section => {
-                observer.observe(section);
             });
         });
     </script>
-
 </body>
 </html>
-
